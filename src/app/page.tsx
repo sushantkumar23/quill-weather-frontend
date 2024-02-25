@@ -162,7 +162,7 @@ const cities: City[] = [
 
 function CityWeatherCard({ city }: { city: City }) {
   return (
-    <div className="mt-4 border-2 border-indigo-500 rounded-xl p-4">
+    <div className="mt-4 border-2 rounded-xl p-4 bg-black text-white shadow-gray-950/20">
       {/* <Image
       src={city["current"]["weather_icons"][0]}
       alt="Weather icon"
@@ -195,7 +195,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center bg-white text-gray-900 justify-between p-24">
       <div className="grid gap-4 w-full max-w-3xl mx-auto">
         <div className="flex flex-col gap-2 mb-6">
           <h1 className="text-4xl font-bold">⛅ Quill Weather</h1>
@@ -209,7 +209,7 @@ export default function Home() {
             type="text"
             onChange={(e) => setCity(e.target.value)}
             value={city}
-            className="p-3 rounded-md border border-gray-200 focus:outline-none focus:ring focus:ring-gray-300 dark:border-gray-800 dark:focus:ring-gray-600 dark:text-black"
+            className="p-3 rounded-md border border-gray-200 focus:outline-none focus:ring focus:ring-gray-300"
             id="location"
             placeholder="Search for a city or zip code..."
           />
