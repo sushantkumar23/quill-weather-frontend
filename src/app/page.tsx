@@ -169,57 +169,69 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center bg-white text-gray-900 justify-between p-24">
-      <div className="grid gap-4 w-full max-w-3xl mx-auto my-8 lg:my-16">
-        <div className="flex flex-col gap-2 mb-4 lg:mb-8">
-          <h1 className="text-2xl font-bold text-indigo-500 mb-2">
-            ⛅ Quill<span className="font-light">Weather</span>
-          </h1>
-          <p className="opacity-90 text-4xl lg:text-5xl font-extrabold tracking-tight">
-            Live ⛅ weather forecasts for your favorite cities
-          </p>
-        </div>
-        {currentCity && <CityWeatherCard city={currentCity} />}
-        <form className="flex flex-col gap-2">
-          <input
-            type="text"
-            onChange={(e) => handleCityChange(e)}
-            value={city}
-            className="p-4 rounded-lg border-2 border-indigo-700 focus:outline-none focus:ring focus:ring-gray-300"
-            id="location"
-            placeholder="Search for a city or zip code..."
-          />
-          {showError && (
-            <p className="text-xs p-2.5 bg-red-100 border border-red-400 rounded-md text-red-800">
-              <span className="font-bold">{error.header}:</span> {error.message}
-            </p>
-          )}
-        </form>
-        <div className="flex flex-col gap-2">
-          <button
-            onClick={() => fetchWeather(city)}
-            className="p-3 rounded-md bg-indigo-500 text-white font-bold hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300"
-            type="submit"
-          >
-            Get Weather
-          </button>
-        </div>
-        <div className="my-8">
-          <div className="my-4">
-            <h2 className="text-xl lg:text-2xl font-bold">
-              🏙️ Selected Cities
-            </h2>
-            <p className="opacity-80 mt-1">
-              Live weather data for your selected favorite cities
+    <>
+      <main className="flex min-h-screen flex-col items-center bg-white text-gray-900 justify-between p-16">
+        <div className="grid gap-4 w-full max-w-3xl mx-auto my-8 lg:my-16">
+          <div className="flex flex-col gap-2 mb-4 lg:mb-8">
+            <h1 className="text-2xl font-bold text-indigo-500 mb-2">
+              🌦️ Quill<span className="font-light">Weather</span>
+            </h1>
+            <p className="opacity-90 text-4xl lg:text-5xl font-extrabold tracking-tight">
+              Live 🌦️ weather forecasts for your favorite cities
             </p>
           </div>
-          <div className="grid md:grid-cols-2 gap-4 lg:gap-6">
-            {cities.map((city, index) => (
-              <CityWeatherCard key={index} city={city} />
-            ))}
+          {currentCity && <CityWeatherCard city={currentCity} />}
+          <form className="flex flex-col gap-2">
+            <input
+              type="text"
+              onChange={(e) => handleCityChange(e)}
+              value={city}
+              className="p-4 rounded-lg border-2 border-indigo-700 focus:outline-none focus:ring focus:ring-gray-300"
+              id="location"
+              placeholder="Search for a city or zip code..."
+            />
+            {showError && (
+              <p className="text-xs p-2.5 bg-red-100 border border-red-400 rounded-md text-red-800">
+                <span className="font-bold">{error.header}:</span>{" "}
+                {error.message}
+              </p>
+            )}
+          </form>
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => fetchWeather(city)}
+              className="p-3 rounded-md bg-indigo-500 text-white font-bold hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300"
+              type="submit"
+            >
+              Get Weather
+            </button>
+          </div>
+          <div className="my-8">
+            <div className="my-4">
+              <h2 className="text-xl lg:text-2xl font-bold">
+                🏙️ Selected Cities
+              </h2>
+              <p className="opacity-80 mt-1">
+                Live weather data for your selected favorite cities
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-4 lg:gap-6">
+              {cities.map((city, index) => (
+                <CityWeatherCard key={index} city={city} />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+      <footer className="bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
+          <div className="mt-8 md:order-1 md:mt-0">
+            <p className="text-center text-xs leading-5 text-gray-500">
+              &copy; 2024 Quill Weather, Inc. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </>
   );
 }

@@ -5,8 +5,9 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Quill Weather",
-  description: "Get live weather forecasts for your favorite cities",
+  title: "Quill Weather App",
+  description:
+    "Get live weather forecasts for your favorite cities at your fingertips",
 };
 
 export default function RootLayout({
