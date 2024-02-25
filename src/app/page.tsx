@@ -162,29 +162,60 @@ const cities: City[] = [
 
 function CityWeatherCard({ city }: { city: City }) {
   return (
-    <div className="mt-4 border-2 rounded-xl p-4 bg-black text-white shadow-gray-950/20">
+    <div className="mt-4 rounded-xl p-6 text-center bg-black text-white shadow-gray-950/80">
       {/* <Image
       src={city["current"]["weather_icons"][0]}
       alt="Weather icon"
       width={64}
       height={64}
     /> */}
-      <h3 className="font-semi-bold text-xl text-center mb-3">
+      <h3 className="font-semi-bold text-xl mb-3">
         {city["location"]["name"]}
       </h3>
-      <p className="text-center font-light text-4xl lg:text-6xl">
+      <p className="font-light text-4xl lg:text-6xl">
         {city["current"]["temperature"]}°
       </p>
-      <p className="opacity-75 text-center mt-4">
+      <p className="mt-1 opacity-80 text-xs">
+        High: {Number(city["current"]["temperature"]) + 2}° Low:
+        {Number(city["current"]["temperature"]) - 2}°
+      </p>
+      <p className="opacity-75 mt-4">
         {city["current"]["weather_descriptions"][0]} conditions
       </p>
+      <div className="bg-slate-800 h-0.5 my-4"></div>
+      <div className="text-sm opacity-70 grid gap-2">
+        <div className="flex justify-between">
+          <p className="">Wind speed</p>
+          <p>{city["current"]["wind_speed"]} km/h</p>
+        </div>
+        <div className="flex justify-between">
+          <p className="">Wind direction</p>
+          <p>{city["current"]["wind_dir"]}</p>
+        </div>
+        <div className="flex justify-between">
+          <p className="">Pressure</p>
+          <p>{city["current"]["pressure"]} hPa</p>
+        </div>
+        <div className="flex justify-between">
+          <p className="">Humidity</p>
+          <p>{city["current"]["humidity"]}%</p>
+        </div>
+        <div className="flex justify-between">
+          <p className="">Visibility</p>
+          <p>{city["current"]["visibility"]} m</p>
+        </div>
+        <div className="flex justify-between">
+          <p className="">UV Index</p>
+          <p>{city["current"]["uv_index"]}</p>
+        </div>
+      </div>
     </div>
   );
 }
 
 export default function Home() {
   const [city, setCity] = useState("");
-  const [currentCity, setCurrentCity] = useState<City | null>(null);
+  const [currentCity, setCurrentCity] = useState<City | null>(cities[0]);
 
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState({
