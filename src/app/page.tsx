@@ -127,7 +127,7 @@ const cities: City[] = [
 
 export default function Home() {
   const [city, setCity] = useState("");
-  const [currentCity, setCurrentCity] = useState<City | null>(cities[0]);
+  const [currentCity, setCurrentCity] = useState<City | null>();
 
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState({
@@ -136,6 +136,7 @@ export default function Home() {
   });
 
   const fetchWeather = async (location: string) => {
+    setCurrentCity(null);
     if (!location) {
       setError({
         header: "Empty location",
@@ -151,6 +152,7 @@ export default function Home() {
     if (response.status === 200) {
       const data = await response.json();
       setCurrentCity(data);
+      setCity("");
     } else {
       setError({
         header: "Invalid location",
@@ -169,25 +171,27 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center bg-white text-gray-900 justify-between p-24">
-      <div className="grid gap-4 w-full max-w-3xl mx-auto">
-        <div className="flex flex-col gap-2 mb-6">
-          <h1 className="text-4xl font-bold">⛅ Quill Weather</h1>
+      <div className="grid gap-4 w-full max-w-3xl mx-auto my-8 lg:my-16">
+        <div className="flex flex-col gap-2 mb-4 lg:mb-8">
+          <h1 className="text-2xl font-bold text-indigo-500 mb-2">
+            ⛅ Quill<span className="font-light">Weather</span>
+          </h1>
+          <p className="opacity-90 text-4xl lg:text-5xl font-extrabold tracking-tight">
+            Live ⛅ weather forecasts for your favorite cities
+          </p>
         </div>
         {currentCity && <CityWeatherCard city={currentCity} />}
         <form className="flex flex-col gap-2">
-          <label className="text-base" htmlFor="location">
-            Enter a location or zip code
-          </label>
           <input
             type="text"
             onChange={(e) => handleCityChange(e)}
             value={city}
-            className="p-3 rounded-md border border-gray-200 focus:outline-none focus:ring focus:ring-gray-300"
+            className="p-4 rounded-lg border-2 border-indigo-700 focus:outline-none focus:ring focus:ring-gray-300"
             id="location"
             placeholder="Search for a city or zip code..."
           />
           {showError && (
-            <p className="text-xs p-3 bg-red-100 border border-red-400 rounded-md text-red-800">
+            <p className="text-xs p-2.5 bg-red-100 border border-red-400 rounded-md text-red-800">
               <span className="font-bold">{error.header}:</span> {error.message}
             </p>
           )}
@@ -195,18 +199,18 @@ export default function Home() {
         <div className="flex flex-col gap-2">
           <button
             onClick={() => fetchWeather(city)}
-            className="p-3 rounded-md bg-indigo-500 text-white font-bold hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300 dark:bg-indigo-700 dark:focus:ring-indigo-600"
+            className="p-3 rounded-md bg-indigo-500 text-white font-bold hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300"
             type="submit"
           >
-            Show Weather
+            Get Weather
           </button>
         </div>
         <div className="my-8">
-          <div className="my-3">
+          <div className="my-4">
             <h2 className="text-xl lg:text-2xl font-bold">
               🏙️ Selected Cities
             </h2>
-            <p className="opacity-80 mt-2">
+            <p className="opacity-80 mt-1">
               Live weather data for your selected favorite cities
             </p>
           </div>
