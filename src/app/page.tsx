@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import CityWeatherCard from "@/components/city-weather-card";
 import type { City } from "@/types";
+import { API_BASE } from "@/config";
 
 const cities: City[] = [
   {
@@ -145,9 +146,7 @@ export default function Home() {
       setShowError(true);
       return;
     }
-    const response = await fetch(
-      `https://quill-weather-backend.vercel.app/weather?location=${location}`
-    );
+    const response = await fetch(`${API_BASE}/weather?location=${location}`);
     console.log(response);
     if (response.status === 200) {
       const data = await response.json();
