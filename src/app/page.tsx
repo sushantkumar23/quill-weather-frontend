@@ -2,43 +2,8 @@
 
 import { useState } from "react";
 
-type City = {
-  request: {
-    type: string;
-    query: string;
-    language: string;
-    unit: string;
-  };
-  location: {
-    name: string;
-    country: string;
-    region: string;
-    lat: string;
-    lon: string;
-    timezone_id: string;
-    localtime: string;
-    localtime_epoch: number;
-    utc_offset: string;
-  };
-  current: {
-    observation_time: string;
-    temperature: number;
-    weather_code: number;
-    weather_icons: string[];
-    weather_descriptions: string[];
-    wind_speed: number;
-    wind_degree: number;
-    wind_dir: string;
-    pressure: number;
-    precip: number;
-    humidity: number;
-    cloudcover: number;
-    feelslike: number;
-    uv_index: number;
-    visibility: number;
-    is_day: string;
-  };
-};
+import CityWeatherCard from "@/components/city-weather-card";
+import type { City } from "@/types";
 
 const cities: City[] = [
   {
@@ -159,59 +124,6 @@ const cities: City[] = [
     },
   },
 ];
-
-function CityWeatherCard({ city }: { city: City }) {
-  return (
-    <div className="mt-4 rounded-xl p-6 text-center bg-black text-white shadow-gray-950/80">
-      {/* <Image
-      src={city["current"]["weather_icons"][0]}
-      alt="Weather icon"
-      width={64}
-      height={64}
-    /> */}
-      <h3 className="font-semi-bold text-xl mb-3">
-        {city["location"]["name"]}
-      </h3>
-      <p className="font-light text-4xl lg:text-6xl">
-        {city["current"]["temperature"]}°
-      </p>
-      <p className="mt-1 opacity-80 text-xs">
-        High: {Number(city["current"]["temperature"]) + 2}° Low:
-        {Number(city["current"]["temperature"]) - 2}°
-      </p>
-      <p className="opacity-75 mt-4">
-        {city["current"]["weather_descriptions"][0]} conditions
-      </p>
-      <div className="bg-slate-800 h-0.5 my-4"></div>
-      <div className="text-sm opacity-70 grid gap-2">
-        <div className="flex justify-between">
-          <p className="">Wind speed</p>
-          <p>{city["current"]["wind_speed"]} km/h</p>
-        </div>
-        <div className="flex justify-between">
-          <p className="">Wind direction</p>
-          <p>{city["current"]["wind_dir"]}</p>
-        </div>
-        <div className="flex justify-between">
-          <p className="">Pressure</p>
-          <p>{city["current"]["pressure"]} hPa</p>
-        </div>
-        <div className="flex justify-between">
-          <p className="">Humidity</p>
-          <p>{city["current"]["humidity"]}%</p>
-        </div>
-        <div className="flex justify-between">
-          <p className="">Visibility</p>
-          <p>{city["current"]["visibility"]} m</p>
-        </div>
-        <div className="flex justify-between">
-          <p className="">UV Index</p>
-          <p>{city["current"]["uv_index"]}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function Home() {
   const [city, setCity] = useState("");
