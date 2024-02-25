@@ -186,12 +186,42 @@ export default function Home() {
   const [city, setCity] = useState("");
   const [currentCity, setCurrentCity] = useState<City | null>(null);
 
+  const [showError, setShowError] = useState(false);
+  const [error, setError] = useState({
+    header: "",
+    message: "",
+  });
+
   const fetchWeather = async (location: string) => {
+    if (!location) {
+      setError({
+        header: "Empty location",
+        message: "Please enter a city or zip code and try again",
+      });
+      setShowError(true);
+      return;
+    }
     const response = await fetch(
       `https://quill-weather-backend.vercel.app/weather?location=${location}`
     );
-    const data = await response.json();
-    setCurrentCity(data);
+    console.log(response);
+    if (response.status === 200) {
+      const data = await response.json();
+      setCurrentCity(data);
+    } else {
+      setError({
+        header: "Invalid location",
+        message: "Please enter a valid city or zip code",
+      });
+      setShowError(true);
+    }
+  };
+
+  const handleCityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCity(e.target.value);
+    if (showError) {
+      setShowError(false);
+    }
   };
 
   return (
@@ -207,12 +237,17 @@ export default function Home() {
           </label>
           <input
             type="text"
-            onChange={(e) => setCity(e.target.value)}
+            onChange={(e) => handleCityChange(e)}
             value={city}
             className="p-3 rounded-md border border-gray-200 focus:outline-none focus:ring focus:ring-gray-300"
             id="location"
             placeholder="Search for a city or zip code..."
           />
+          {showError && (
+            <p className="text-xs p-3 bg-red-100 border border-red-400 rounded-md text-red-800">
+              <span className="font-bold">{error.header}:</span> {error.message}
+            </p>
+          )}
         </form>
         <div className="flex flex-col gap-2">
           <button
